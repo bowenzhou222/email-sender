@@ -1,19 +1,21 @@
-import throng from 'throng';
-
-import { logger } from './src/utils/log';
+const throng = require('throng');
 
 const WORKERS = process.env.WEB_CONCURRENCY || 4;
 const startMaster = (id) => {
-  logger('info', `----------------- Started master ${id} -----------------`);
+  console.log(`----------------- Started master ${id} -----------------`);
 };
 
 const startWorker = (id) => {
-  require('./dist/server.js');
-  logger('info', `----------------- Started worker ${id} -----------------`);
-  process.on('SIGTERM', () => {
-    logger('error', `----------------- Worker ${id} exiting... -----------------`);
-    process.exit();
-  });
+  try {
+    require('./dist/server.js');
+    console.log(`----------------- Started worker ${id} -----------------`);
+    process.on('SIGTERM', () => {
+      console.error(`----------------- Worker ${id} exiting... -----------------`);
+      process.exit();
+    });
+  } catch {
+    console.error(`----------------- Fail to start worker ${id} -----------------`);
+  }
 };
 
 throng({
