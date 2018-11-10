@@ -1,0 +1,44 @@
+{
+    "extends": [
+      "tslint:recommended"
+    ],
+    "linterOptions": {
+      "exclude": [
+        "config/**/*.js",
+        "node_modules/**/*.ts",
+        "webpack.config.js"
+      ]
+    },
+    "rules": {
+      "object-literal-sort-keys": false,
+      "ordered-imports": false,
+      "quotemark": [true, "single"],
+      "no-console": {
+        "severity": "warning"
+      },
+      "typedef": {
+        "severity": "warning",
+        "options": [
+          "call-signature",
+          "arrow-call-signature",
+          "parameter",
+          "arrow-parameter",
+          "property-declaration",
+          "member-variable-declaration"
+        ]
+      },
+      "no-default-export": {
+        "severity": "warning"
+      },
+      "max-line-length": [true, 125],
+      "max-file-line-count": [true, 600],
+      "cyclomatic-complexity": [true, 20],
+      "eofline": true,
+      "indent": [true, "spaces", 2],
+      "linebreak-style": [true, "LF"],
+      "array-type": [true, "generic"],
+      "encoding": true,
+      "class-name": true
+    }
+  }
+  
