@@ -15,8 +15,8 @@ export const send = (req: Request, res: Response, next: NextFunction): Promise<R
   const mailgunBody: IMailgunEmailContent = {
     from: body.from,
     to: body.to.map((t: IEmailTo) => t.email).join(','),
-    cc: body.cc.map((t: IEmailCC) => t.email).join(','),
-    bcc: body.bcc.map((t: IEmailBCC) => t.email).join(','),
+    cc: body.cc && body.cc.map((t: IEmailCC) => t.email).join(','),
+    bcc: body.bcc && body.bcc.map((t: IEmailBCC) => t.email).join(','),
     subject: body.subject,
     text: body.text,
   };
@@ -26,7 +26,9 @@ export const send = (req: Request, res: Response, next: NextFunction): Promise<R
     })
     .catch((error: StatusCodeError) => {
       const sendgridBody: ISendgridEmailContent = {
-        from: body.from,
+        from: {
+          email: body.from,
+        },
         personalizations: [{
           subject: body.subject,
           to: body.to,
@@ -45,7 +47,7 @@ export const send = (req: Request, res: Response, next: NextFunction): Promise<R
       .catch((err: StatusCodeError) => {
         logger(
           'error',
-          `Send email failed - traceId: ${traceId}, ${error.message}`,
+          `Send email failed - traceId: ${traceId}, ${err.message}`,
         );
         return sendFailResponse(res, err.name, err.message, err.statusCode, req);
       });

@@ -1,6 +1,7 @@
 import { config } from '../../config';
-import { ISendEmailReponse, ServiceName } from 'email';
+import { ISendEmailReponse, ServiceName, IMailgunEmailContent, ISendgridEmailContent } from 'email';
 import { OptionsWithUri } from 'request-promise';
+import * as queryString from 'query-string';
 import { requestAgent } from '../../utils/request';
 
 const mailgunConfig = {
@@ -18,7 +19,7 @@ const sendgridConfig = {
 };
 
 const generateRequestOpts = (
-  url: string, method: string, service: ServiceName, body?: any,
+  url: string, method: string, service: ServiceName, body?: IMailgunEmailContent | ISendgridEmailContent,
 ): OptionsWithUri => {
   const auth = service === 'mailgun'
     ? `Basic ${Buffer.from(`api:${mailgunConfig.apiKey}`).toString('base64')}`
@@ -26,7 +27,9 @@ const generateRequestOpts = (
   let options = {
     headers: {
       'Authorization': auth,
-      'Content-Type': 'application/json',
+      'Content-Type': service === 'mailgun'
+        ? 'application/x-www-form-urlencoded'
+        : 'application/json',
     },
     method,
     uri: url,
@@ -35,13 +38,17 @@ const generateRequestOpts = (
   };
   if (method === 'POST' || method === 'PUT') {
     options = Object.assign({}, options, {
-      body: JSON.stringify(body),
+      body: service === 'mailgun'
+        ? !!body && queryString.stringify(body)
+        : body,
     });
   }
   return options;
 };
 
-export const sendEmail = (emailContent: any, service: ServiceName): Promise<ISendEmailReponse> => {
+export const sendEmail = (
+  emailContent: IMailgunEmailContent | ISendgridEmailContent, service: ServiceName,
+): Promise<ISendEmailReponse> => {
   const url = service === 'mailgun'
     ? `${mailgunConfig.hostname}/${mailgunConfig.version}/${mailgunConfig.domainName}/messages`
     : `${sendgridConfig.hostname}/${sendgridConfig.version}/mail/send`;

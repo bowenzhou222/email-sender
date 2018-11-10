@@ -16,14 +16,14 @@ const appConfig = {
     domain_name: process.env.MAILGUN_DOMAIN_NAME || 'sandbox018225051754486dac08e65225831082.mailgun.org',
     version: process.env.MAILGUN_VERSION || 'v3',
     timeout: process.env.MAILGUN_TIMEOUT || '3000',
-    api_key: process.env.MAILGUN_API_KEY || '',
+    api_key: process.env.MAILGUN_API_KEY,
   },
   sendgrid: {
     protocol: process.env.SENDGRID_PROTOCOL || 'https',
     host: process.env.SENDGRID_HOST || 'api.sendgrid.com',
     version: process.env.SENDGRID_VERSION || 'v3',
     timeout: process.env.SENDGRID_TIMEOUT || '3000',
-    api_key: process.env.SENDGRID_API_KEY || '',
+    api_key: process.env.SENDGRID_API_KEY,
   },
 };
 

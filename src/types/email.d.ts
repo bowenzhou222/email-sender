@@ -16,8 +16,8 @@ declare namespace email {
   interface IEmailRequestBody {
     from: string;
     to: Array<IEmailTo>;
-    cc: Array<IEmailCC>;
-    bcc: Array<IEmailBCC>;
+    cc?: Array<IEmailCC>;
+    bcc?: Array<IEmailBCC>;
     subject: string;
     text: string;
   }
@@ -25,8 +25,8 @@ declare namespace email {
   interface IMailgunEmailContent {
     from: string;
     to: string;
-    cc: string;
-    bcc: string;
+    cc?: string;
+    bcc?: string;
     subject: string;
     text: string;
   }
@@ -34,8 +34,8 @@ declare namespace email {
   interface IEmailPersonalization {
     subject: string;
     to: Array<IEmailTo>;
-    cc: Array<IEmailCC>;
-    bcc: Array<IEmailBCC>;
+    cc?: Array<IEmailCC>;
+    bcc?: Array<IEmailBCC>;
   }
   
   interface IEmailContent {
@@ -43,7 +43,10 @@ declare namespace email {
     value: string;
   }
   interface ISendgridEmailContent {
-    from: string;
+    from: {
+      email: string,
+      name?: string,
+    };
     personalizations: Array<IEmailPersonalization>;
     content: Array<IEmailContent>;
   }
