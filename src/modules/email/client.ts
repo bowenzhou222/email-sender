@@ -46,5 +46,5 @@ export const sendEmail = (emailContent: any, service: ServiceName): Promise<ISen
     ? `${mailgunConfig.hostname}/${mailgunConfig.version}/${mailgunConfig.domainName}/messages`
     : `${sendgridConfig.hostname}/${sendgridConfig.version}/mail/send`;
   const options: OptionsWithUri = generateRequestOpts(url, 'POST', service, emailContent);
-  return requestAgent(options, 'mailgun');
+  return requestAgent(options, service);
 };
