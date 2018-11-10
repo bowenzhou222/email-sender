@@ -50,10 +50,15 @@ declare namespace email {
     personalizations: Array<IEmailPersonalization>;
     content: Array<IEmailContent>;
   }
-  
-  interface ISendEmailReponse {
-    [x: string]: any;
+
+  interface IMailgunResponse {
+    id: string;
+    message: string;
   }
+
+  interface ISendgridResponse {}
+  
+  type ISendEmailReponse = IMailgunResponse | ISendgridResponse;
   
   type ServiceName = 'mailgun' | 'sendgrid';
 }

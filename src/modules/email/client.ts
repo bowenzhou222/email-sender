@@ -4,14 +4,14 @@ import { OptionsWithUri } from 'request-promise';
 import * as queryString from 'query-string';
 import { requestAgent } from '../../utils/request';
 
-const mailgunConfig = {
+export const mailgunConfig = {
   hostname: `${config.mailgun.protocol}://${config.mailgun.host}`,
   timeout: Number(config.mailgun.timeout),
   apiKey: config.mailgun.api_key,
   version: config.mailgun.version,
   domainName: config.mailgun.domain_name,
 };
-const sendgridConfig = {
+export const sendgridConfig = {
   hostname: `${config.sendgrid.protocol}://${config.sendgrid.host}`,
   version: config.sendgrid.version,
   timeout: Number(config.sendgrid.timeout),
