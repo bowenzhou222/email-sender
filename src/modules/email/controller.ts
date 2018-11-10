@@ -41,16 +41,19 @@ export const send = (req: Request, res: Response, next: NextFunction): Promise<R
         }],
       };
       return sendEmail('sendgrid', sendgridBody, traceId as string)
-      .then((emailResponse: ISendEmailReponse) => {
-        return sendSuccessResponse(res, emailResponse, 200, req);
-      })
-      .catch((err: StatusCodeError) => {
-        logger(
-          'error',
-          `Send email failed - traceId: ${traceId}, ${err.message}`,
-        );
-        return sendFailResponse(res, err.name, err.message, err.statusCode, req);
-      });
+        .then((emailResponse: ISendEmailReponse) => {
+          if (!!next) {
+            next();
+          }
+          return sendSuccessResponse(res, emailResponse, 200, req);
+        })
+        .catch((err: StatusCodeError) => {
+          logger(
+            'error',
+            `Send email failed - traceId: ${traceId}, ${err.message}`,
+          );
+          return sendFailResponse(res, err.name, err.message, err.statusCode, req);
+        });
     });
 };
 
