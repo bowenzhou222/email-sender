@@ -1,13 +1,13 @@
-import * as throng from 'throng';
+import throng from 'throng';
 
 import { logger } from './src/utils/log';
 
 const WORKERS = process.env.WEB_CONCURRENCY || 4;
-const startMaster = (id: number): any => {
+const startMaster = (id) => {
   logger('info', `----------------- Started master ${id} -----------------`);
 };
 
-const startWorker = (id: number): any => {
+const startWorker = (id) => {
   require('./dist/server.js');
   logger('info', `----------------- Started worker ${id} -----------------`);
   process.on('SIGTERM', () => {

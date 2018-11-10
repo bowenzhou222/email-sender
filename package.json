@@ -2,14 +2,14 @@
   "name": "siteminder-email",
   "version": "1.0.0",
   "description": "siteminder backend test",
-  "main": "server.ts",
+  "main": "throng.js",
   "scripts": {
     "tsc": "./node_modules/typescript/bin/tsc",
     "lint": "./node_modules/tslint/bin/tslint 0c tsline.json 'src/**/*.ts'",
     "test": "NODE_ENV=test mocha --timeout 10000 -r ts-node/register src/tests/**/*.ts --exit",
     "build": "npm run tsc",
     "dev": "PORT=9090 nodemon --watch 'src/**/*.ts' --ignore 'src/**/*.spec.ts' --exec 'ts-node' src/server.ts",
-    "start": "ts-node throng.js",
+    "start": "node throng.js",
     "prod": "npm run build && npm run start"
   },
   "author": "Bowen Zhou",
