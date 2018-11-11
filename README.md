@@ -19,6 +19,22 @@ curl -X POST \
 			"email": "target2@email.com"
 		}
 	],
+	"cc": [
+		{
+			"email": "cc1@email.com"
+		},
+		{
+			"email": "cc2@email.com"
+		}
+	],
+	"bcc": [
+		{
+			"email": "bcc1@email.com"
+		},
+		{
+			"email": "cbc2@email.com"
+		}
+	],
 	"subject": "test email",
 	"text": "Hi test email!"
 }'
